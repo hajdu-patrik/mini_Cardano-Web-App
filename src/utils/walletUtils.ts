@@ -62,12 +62,23 @@ export function getAvailableWallets(): CardanoWallet[] {
 }
 
 // Helper to get wallet data
+import { Address } from '@emurgo/cardano-serialization-lib-browser';
 export async function getWalletData(walletApi: CardanoWalletApi) {
-  const [addresses, balanceHex, assets] = await Promise.all([
+  const [addressesHex, balanceHex, assets] = await Promise.all([
     walletApi.getUsedAddresses(),
     walletApi.getBalance(),
     walletApi.getAssets ? walletApi.getAssets() : Promise.resolve([]),
   ]);
+  // Convert hex addresses to Bech32
+  const addresses = addressesHex.map((hex: string) => {
+    try {
+      // Convert hex string to Uint8Array
+      const bytes = new Uint8Array(hex.match(/.{1,2}/g)!.map(byte => parseInt(byte, 16)));
+      return Address.from_bytes(bytes).to_bech32();
+    } catch (e) {
+      return hex; // fallback to hex if conversion fails
+    }
+  });
   // Convert balance from hex to ADA
   const balance = parseInt(balanceHex, 16) / 1_000_000;
   // NFTs: filter assets with length > 56 (policyId+assetName)

@@ -1,97 +1,273 @@
+/* ====================================
+   🌐 Base Style for Wallet Connector
+==================================== */
 .wallet-connector {
   position: relative;
   z-index: 1000;
-}
-
-.wallet-sync-btn {
-  padding: 8px 20px;
-  background: #8b5cf6;
-  color: #fff;
-  border: 2px solid #8b5cf6;
-  border-radius: 6px;
+  color: #fef7ff;
   font-size: 1rem;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
-  transition: all 0.2s ease;
 }
 
-.wallet-sync-btn:hover {
-  background: #7c3aed;
-  border-color: #6d28d9;
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+/* ====================================
+   🔘 Wallet Connect Button (Default State)
+==================================== */
+.wallet-connect-btn {
+  padding: 20px 20px;
+  background: #4b4453;
+  border: 2px solid #b0a8b9;
+  border-radius: 1em;
+  box-shadow: 0 2px 8px rgba(132, 94, 194, 0.3);
+  transition: all 0.3s ease;
+  color: #fef7ff;
+  font-weight: 500;
 }
 
-.wallet-sync-btn:disabled {
-  background: #a78bfa;
-  border-color: #a78bfa;
+/* 🔘 Hover Effect */
+.wallet-connect-btn:hover {
+  background: #3e3844;
+  border-color: #88818f;
+  box-shadow: 0 4px 12px rgba(132, 94, 194, 0.5);
+}
+
+/* 🔘 Disabled State */
+.wallet-connect-btn:disabled {
+  background: #845ec2;
+  border-color: #b0a8b9;
   cursor: not-allowed;
 }
 
+/* 🔘 Focus State */
+.wallet-sync-btn:focus {
+  outline: 2px solid #00c0a3;
+  outline-offset: 2px;
+}
+
+/* ====================================
+   🟣 Fullscreen Overlay (Modal Backdrop)
+==================================== */
 .wallet-list-modal {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.2);
+  background: rgba(20, 20, 30, 0.65);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1100;
-}
-.wallet-list {
-  background: #fff;
-  padding: 24px 32px;
-  border-radius: 10px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
-  min-width: 260px;
-  text-align: center;
+  z-index: 1001;
+  animation: fadeIn 0.25s ease;
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ====================================
+   💳 Wallet List Modal Card
+==================================== */
+.wallet-list {
+  background: rgba(36, 36, 48, 0.98);
+  padding: 2em 2.5em;
+  border-radius: 1.5em;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  min-width: 320px;
+  max-width: 95vw;
+  text-align: center;
+  border: none;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ====================================
+   ❌ Modal Header (Close Button)
+==================================== */
 .wallet-list-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 1.5em;
 }
 
 .close-btn {
-  background: #8b5cf6;
+  background: transparent;
   color: #fff;
-  border: 2px solid #6d28d9;
+  border: none;
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  font-size: 16px;
+  width: 2em;
+  height: 2em;
+  font-size: 1.5em;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: background 0.2s, color 0.2s;
 }
 
-.close-btn:hover {
-  background: #7c3aed;
-  border-color: #5b21b6;
-  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+.close-btn:hover, .close-btn:focus {
+  background: rgba(132, 94, 194, 0.2);
+  color: #ffd700;
+  outline: none;
 }
+
+/* ====================================
+   🪙 Wallet Option Buttons
+==================================== */
 .wallet-list-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 16px;
-  margin: 8px 0;
-  background: #f5f5f5;
+  gap: 0.75em;
+  padding: 0.9em 1.5em;
+  margin: 0.5em 0;
+  background: rgba(245,245,245,0.95);
   border: none;
-  border-radius: 6px;
+  border-radius: 2em;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.2s;
+  font-size: 1.08em;
+  font-weight: 500;
+  transition: background 0.18s, box-shadow 0.18s;
+  box-shadow: 0 1px 4px rgba(132, 94, 194, 0.08);
 }
+
+.wallet-list-item:hover,
+.wallet-list-item:focus {
+  background: #e0e0e0;
+  box-shadow: 0 2px 8px rgba(132, 94, 194, 0.18);
+  outline: 2px solid #00c0a3;
+}
+
 .wallet-list-item:disabled {
   background: #e0e0e0;
   cursor: not-allowed;
 }
-.wallet-icon {
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
-  object-fit: contain;
-} 
+
+/* ====================================
+   🖼️ Wallet or Site Icon (Circle Thumbnail)
+==================================== */
+.wallet-icon, .site-icon {
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(132, 94, 194, 0.12);
+}
+
+.site-icon {
+  width: 2.2em;
+  height: 2.2em;
+  border: 2px solid #ffd700;
+  margin-right: 0.5em;
+  transition: box-shadow 0.18s, border 0.18s;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* ====================================
+   ✅ Connected Wallet Button
+==================================== */
+.wallet-connected-btn {
+  background: #ffd700;
+  color: #222;
+  border: none;
+  border-radius: 2em;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.18);
+  padding: 0.7em 1.5em;
+  transition: background 0.18s, color 0.18s;
+}
+
+.wallet-connected-btn:hover,
+.wallet-connected-btn:focus {
+  background: #ffe066;
+  color: #111;
+}
+
+/* ====================================
+   📂 Dropdown Menu (Connected Actions)
+==================================== */
+.wallet-dropdown {
+  background: rgba(36, 36, 48, 0.98);
+  border-radius: 1.2em;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  min-width: 220px;
+  padding: 0.5em;
+  z-index: 1002;
+  position: absolute;
+  right: 0;
+  top: 110%;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease;
+}
+
+.wallet-dropdown-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  padding: 0.5em 1em;
+  border-bottom: 1px solid #4b4453;
+  margin-bottom: 0.5em;
+}
+
+.wallet-dropdown-address {
+  font-size: 1.08em;
+  font-weight: 500;
+  color: #ffd700;
+}
+
+/* 🔽 Dropdown Items */
+.wallet-dropdown .wallet-list-item {
+  background: rgba(245,245,245,0.95);
+  border-radius: 2em;
+  margin: 0.25em 0.5em;
+  padding: 0.75em 1em;
+  font-size: 1em;
+  border: none;
+  text-align: left;
+  transition: background 0.18s;
+}
+
+.wallet-dropdown .wallet-list-item:hover,
+.wallet-dropdown .wallet-list-item:focus {
+  background: #e0e0e0;
+  outline: 2px solid #ffd700;
+}
+
+.wallet-dropdown .wallet-list-item:active {
+  background: #d1c4e9;
+}
+
+/* ====================================
+   📱 Responsive Adjustments (Mobile)
+==================================== */
+@media (max-width: 600px) {
+  .wallet-list {
+    min-width: 96vw;
+    max-width: 98vw;
+    padding: 1em 0.5em;
+  }
+
+  .wallet-dropdown {
+    min-width: 80vw;
+    right: 2vw;
+  }
+
+  .wallet-list-header {
+    flex-direction: column;
+    gap: 0.5em;
+  }
+
+  .wallet-list-item,
+  .wallet-dropdown .wallet-list-item {
+    font-size: 1em;
+    padding: 0.8em 0.5em;
+  }
+}

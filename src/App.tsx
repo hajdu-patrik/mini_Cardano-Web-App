@@ -1,3 +1,4 @@
+import React from 'react';
 import WalletConnector from './components/WalletConnector';
 import './App.css';
 
