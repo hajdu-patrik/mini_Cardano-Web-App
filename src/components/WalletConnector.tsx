@@ -85,7 +85,7 @@ const WalletConnector: React.FC = () => {
   return (
     <div className="wallet-connector">
       {!isConnected ? (
-      <button className="wallet-connect-btn" onClick={handleSyncClick} disabled={connecting}>
+        <button className="wallet-connect-btn" onClick={handleSyncClick} disabled={connecting}>
           Conncet Wallet
         </button>
       ) : (
@@ -93,15 +93,16 @@ const WalletConnector: React.FC = () => {
           <button className="wallet-connect-btn wallet-connected-btn" onClick={() => setDropdownOpen((v) => !v)}>
             <img src={siteIcon} alt="Site Icon" className="site-icon" />
             {connectedAddress}
-      </button>
+          </button>
           {dropdownOpen && (
             <div className="wallet-dropdown">
               <div className="wallet-dropdown-header">
                 <img src={siteIcon} alt="Site Icon" className="site-icon" />
                 <span className="wallet-dropdown-address">{connectedAddress}</span>
               </div>
-              <button className="wallet-list-item" onClick={handleDisconnect} style={{ width: '100%', textAlign: 'left' }}>Disconnect Wallet</button>
+
               <button className="wallet-list-item" onClick={handleChangeWallet} style={{ width: '100%', textAlign: 'left' }}>Change Wallet</button>
+              <button className="wallet-list-item" onClick={handleDisconnect} style={{ width: '100%', textAlign: 'left' }}>Disconnect Wallet</button>           
             </div>
           )}
         </div>
