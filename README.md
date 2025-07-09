@@ -9,6 +9,8 @@ A React TypeScript application that implements a Cardano wallet connection featu
 - **Wallet Data Access**: Retrieves and logs wallet address, ADA balance, assets, and NFTs
 - **Modern UI**: Clean, responsive interface with modal wallet selection
 - **TypeScript**: Fully typed for better development experience
+- **Tailwind CSS**: Modern utility-first CSS framework for styling
+- **Create React App**: Stable and reliable React development environment
 
 ## 📁 Project Structure
 
@@ -22,12 +24,16 @@ coding_project/
 │   ├── styles/
 │   │   └── WalletConnector.css    # Component styling
 │   ├── App.tsx                    # Main app component
-│   ├── main.tsx                   # App entry point
+│   ├── App.css                    # App-specific styles
+│   ├── index.tsx                  # App entry point
 │   └── index.css                  # Global styles
 ├── public/
-│   └── index.html                 # HTML entry point
+│   ├── index.html                 # HTML entry point
+│   └── icon/
+│       └── cardano.webp           # Cardano icon
 ├── package.json                   # Dependencies and scripts
-├── vite.config.ts                 # Vite configuration
+├── tailwind.config.js             # Tailwind CSS configuration
+├── postcss.config.js              # PostCSS configuration
 ├── tsconfig.json                  # TypeScript configuration
 └── README.md                      # This file
 ```
@@ -36,8 +42,11 @@ coding_project/
 
 - **React 18** - UI framework
 - **TypeScript** - Type safety
-- **Vite** - Build tool and dev server
+- **Create React App** - Build tool and dev server
+- **Tailwind CSS** - Utility-first CSS framework
+- **PostCSS** - CSS processing
 - **CIP-30 Protocol** - Cardano wallet communication standard
+- **@emurgo/cardano-serialization-lib-browser** - Cardano serialization library
 
 ## 📦 Installation
 
@@ -54,9 +63,11 @@ coding_project/
 3. **Start the development server:**
    ```bash
    npm run dev
+   # or
+   npm start
    ```
 
-4. **Open your browser** and navigate to the URL shown in the terminal (usually `http://localhost:5173`)
+4. **Open your browser** and navigate to `http://localhost:3000`
 
 ## 🔧 How It Works
 
@@ -72,63 +83,76 @@ The project implements the CIP-30 interface which provides:
 - And other CIP-30 methods
 
 ### 3. User Flow
-1. User clicks "Wallet Sync" button (top-right corner)
+1. User clicks "Connect Wallet" button
 2. App detects available Cardano wallets
 3. User selects a wallet from the modal
-4. App connects via CIP-30 and logs wallet data to console
+4. App connects via CIP-30 and displays wallet address
+5. User can disconnect or change wallet via dropdown
 
 ## 🎯 Usage
 
 ### For Users
 1. Install a Cardano wallet extension (Nami, Eternl, Flint, etc.)
 2. Open the application in your browser
-3. Click the "Wallet Sync" button in the top-right corner
+3. Click the "Connect Wallet" button
 4. Select your wallet from the list
 5. Approve the connection in your wallet
-6. Check the browser console for wallet data
+6. View your connected wallet address
 
 ### For Developers
 The main components are:
 
 **WalletConnector.tsx** - Main UI component
 - Handles wallet detection and connection
-- Manages UI state (modal, loading, etc.)
-- Logs wallet data to console
+- Manages UI state (modal, loading, connected state)
+- Displays wallet address and connection status
 
 **walletUtils.ts** - Utility functions
 - `getAvailableWallets()` - Detects installed wallets
 - `getWalletData()` - Fetches wallet information
 - CIP-30 type definitions
 
-## 🔍 Console Output
+**WalletConnector.css** - Component styling
+- Custom CSS for wallet connector UI
+- Modal animations and responsive design
 
-After successful wallet connection, the following data is logged to the browser console:
-- **Wallet Address(es)**: Array of used addresses
-- **ADA Balance**: Current balance in ADA (converted from lovelace)
-- **Assets**: List of all assets/tokens in the wallet
-- **NFTs**: Filtered list of NFTs (assets with length > 56 characters)
+## 🎨 Styling
+
+The project uses a combination of:
+- **Tailwind CSS** - For utility classes and responsive design
+- **Custom CSS** - For component-specific styling in `WalletConnector.css`
+- **PostCSS** - For processing and optimizing CSS
 
 ## 🚀 Available Scripts
 
-- `npm run dev` - Start development server
+- `npm start` - Start development server
+- `npm run dev` - Start development server (alias)
 - `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
+- `npm test` - Run tests
+- `npm run eject` - Eject from Create React App (one-way operation)
 
 ## 🔮 Future Enhancements
 
 The project is structured to easily add:
-- Wallet data display in UI
+- Wallet data display in UI (balance, assets, NFTs)
 - Transaction creation and signing
 - Asset management interface
 - Network switching (Mainnet/Testnet)
 - Multiple wallet support
+- Enhanced Tailwind CSS integration
 
 ## 📚 CIP-30 Resources
 
 - [CIP-30 Specification](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0030)
 - [Cardano Developer Portal](https://developers.cardano.org/)
 - [Wallet API Documentation](https://docs.cardano.org/cardano-components/cardano-wallet/api/)
+
+## 🛠️ Development Notes
+
+- The project uses Create React App for stability and ease of development
+- Tailwind CSS is configured and ready for use
+- All wallet interactions are handled through the CIP-30 protocol
+- TypeScript provides full type safety for wallet operations
 
 ## 🤝 Contributing
 
